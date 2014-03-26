@@ -1,8 +1,18 @@
-body {
+/*body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}*/
+
+a:visited {font-size:24; color: red;}
+/*a {color: green; display: none;}
+a:visited {color: red; display: inline;}
+div a { display: none;}
+div a:visited { display: inline; }*/
+
+/*a {	
+  color: green;
 }
 
-a {
-  color: #00B7FF;
-}
+a:visited {
+	color: red;
+}*/
