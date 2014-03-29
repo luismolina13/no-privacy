@@ -1,9 +1,18 @@
+@font-face{
+	font-family: calculator;
+	src: url(digital-7.ttf);
+}
+
+a{
+	font-family: calculator;
+}
+
 /*body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }*/
 
-a:visited {font-size:24; color: red;}
+/*a:visited {font-size:24; color: red;}*/
 /*a {color: green; display: none;}
 a:visited {color: red; display: inline;}
 div a { display: none;}
