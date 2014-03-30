@@ -9,30 +9,30 @@
 .back {
 	font-family: calculator;
 	font-size: 40;
-	text-decoration: none;			
+	text-decoration: none;
 	position: absolute;
 }
 
 .box a{
 	font-family: calculator;
 	font-size: 40;
-	text-decoration: none;	
+	text-decoration: none;
 	color: #13b4ff;
 	position: absolute;
 }
 
 .box a:visited {
 	color:black;
-} 
+}
 
 /*.css_table a {
 	font-family: Arial;
 	font-size: 20;
-	text-decoration: none;	
-	color: black;	
+	text-decoration: none;
+	color: black;
 }*/
 
-.box {   
+.box {
     float: left;
     width: 190px;
     height: 40px;
@@ -84,66 +84,27 @@
 
 </style>
 
-<script type="text/javascript">
-var sites = new Array();
-var visited = new Array();
+<script type="text/javascript" src="sniff.js"></script>
 
-sites[0] = "https://www.google.com";
-sites[1] = "http://www.youtube.com";
-sites[2] = "http://www.facebook.com";
-sites[3] = "http://www.msn.com";
-sites[4] = "http://www.yahoo.com";
-sites[5] = "http://www.twitter.com";
-sites[6] = "http://www.amazon.com";
-sites[7] = "http://www.answers.com";
-sites[8] = "http://www.microsoft.com";
-sites[9] = "http://www.yelp.com";
+<div>
+<img id="h1_pre" style="display: none">
+<img id="h2_pre" style="display: none">
+<img id="h1" style="display: none">
+<img id="h2" style="display: none">
+<img id="m1" style="display: none">
+<img id="m2" style="display: none">
+<img id="google" style="display: none">
+<img id="youtube" style="display: none">
+<img id="fb" style="display: none">
+<img id="msn" style="display: none">
+<img id="msft" style="display: none">
+<img id="nyt" style="display: none">
+</div>
 
-// <!-- 9EA5928HA9 -->
-visited[0] = "9";
-visited[1] = "E";
-visited[2] = "A";
-visited[3] = "6";
-visited[4] = "9";
-visited[5] = "2";
-visited[6] = "8";
-visited[7] = "H";
-visited[8] = "A";
-visited[9] = "9";
-
-function populateTable() { 	
-	var data = document.getElementById('text_box').value;//document.forms["submit_form"]["chars"].value;
-	console.log(data);
-	// alert("here");
-	// Empty content string
-  var tableContent = '';
-  
-  if(data.length != sites.length) 
-  	return;
-  for (var i=0; i < sites.length; i++) { 
-  	tableContent += '<tr>';
-    tableContent += '<td><a href="' + sites[i] + '">' + sites[i] + '</a></td>';        
-    if(data[i] == visited[i]) {
-    	tableContent += '<td>Yes</td>';
-    }
-    else {
-    	tableContent += '<td>No</td>';	
-    }
-    tableContent += '</tr>';        		
-	}     
-	console.log(tableContent);
-
-	// alert("DONE");
-	// alert("Clicked");
-
-	// Inject the whole content string into our existing HTML table
-  $('#css_table table tbody').html(tableContent);	
-}
-
-</script>
+<script type="text/javascript" src="timing.js"></script>
 
 <div class="box" style="background-color:#13b4ff;">
-	<a class = "link1" href="https://www.google.com/FDSAF">5</a>
+	<a class = "link1" href="https://www.google.com/">5</a>
 	<a class = "link2" href="http://www.youtube.com">E</a>
 	<a class = "link3" href="https://www.facebook.com/">A</a>
 	<a class = "link4" href="http://www.msn.com/">6</a>
@@ -165,9 +126,22 @@ function populateTable() {
 	Submit
 </button>
 <br>
-<div id = "css_table" class="css_table">
+<div id = "css_table_sniff" class="css_table">
 	<table>
-		<thead>		
+		<thead>
+		<h3>CSS Sniffing</h3>
+		<tr>
+			<th>Website</th>
+			<th>Visited</th>
+		</tr>
+		</thead>
+		<tbody></tbody>
+	</table>
+</div>
+<div id = "css_table_timing" class="css_table">
+	<table>
+		<thead>
+		<h3>Timing Attack</h3>
 		<tr>
 			<th>Website</th>
 			<th>Visited</th>
