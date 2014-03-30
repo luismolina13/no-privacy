@@ -112,18 +112,18 @@ visited[8] = "A";
 visited[9] = "9";
 
 function populateTable() { 	
-	var value = document.forms["submit_form"]["chars"].value;
+	var data = document.getElementById('text_box').value;//document.forms["submit_form"]["chars"].value;
+	console.log(data);
 	// alert("here");
 	// Empty content string
   var tableContent = '';
   
-  if(value.length != sites.length) 
+  if(data.length != sites.length) 
   	return;
   for (var i=0; i < sites.length; i++) { 
   	tableContent += '<tr>';
-    tableContent += '<td><a href="' + sites[i] + '">' + sites[i] + '</a></td>';    
-    console.log(value[i]);  
-    if(value[i] == visited[i]) {
+    tableContent += '<td><a href="' + sites[i] + '">' + sites[i] + '</a></td>';        
+    if(data[i] == visited[i]) {
     	tableContent += '<td>Yes</td>';
     }
     else {
@@ -160,9 +160,7 @@ function populateTable() {
 	<!-- 9EA6928HA9 -->
 </div>
 <br>
-<form id="submit_form"> 
-	<input id="text_box" type="text" name="chars"><br>
-</form>
+<input id="text_box" type="text" name="chars"><br>
 <button id="submit" type="submit" value="Submit" onClick="populateTable(); return false">
 	Submit
 </button>
