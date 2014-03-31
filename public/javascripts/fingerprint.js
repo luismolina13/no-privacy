@@ -49,11 +49,16 @@ var postPlugins = function() {
 	    // }, 
 	    success: function(data){
 	    	console.log(data);
-	    	// Fill in the fingerprint details. 
-	    	var visits_str = "<p><b>You have visited this site " + data.visits + " times</b></p>";
-	    	visits_str += "<p> Below you can find some details of your fingerprint </p>"
-	    	document.getElementById("visits").innerHTML = visits_str;
-				document.getElementById("example").innerHTML=userAgent_str;
+	    	if(data.success) {
+		    	// Fill in the fingerprint details. 
+		    	var visits_str = "<p><b>You have visited this site " + data.visits + " times</b></p>";
+		    	visits_str += "<p> Below you can find some details of your fingerprint </p>"
+		    	document.getElementById("visits").innerHTML = visits_str;
+					document.getElementById("example").innerHTML=userAgent_str;	    		
+	    	}
+	    	else {
+	    		alert(data.error_msg);
+	    	}
 	    },
 	    failure: function(errMsg) {
 	        alert(errMsg);

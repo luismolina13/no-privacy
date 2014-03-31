@@ -51,20 +51,42 @@ exports.plugins = function(req, res) {
 	// Hashed the fingerprint
   console.log(d);	
 
-	pg.connect(process.env.DATABASE_URL, function(err, client) {
-	// pg.connect("pg://luis:DB2014@localhost:5433/mylocaldb", function(err, client) {
-		if(err)
-      return console.error('error running select', err);
+	// pg.connect(process.env.DATABASE_URL, function(err, client) {
+	pg.connect("pg://luis:DB2014@localhost:5433/mylocaldb", function(err, client) {
+		if(err) {
+			res.send(JSON.stringify(
+	  		{ 
+	  			success: false,
+	  			error_msg: 'Error on connecting to db'
+	  		}));
+      return console.error('error running select', err);    	
+    }
 	  client.query('SELECT * FROM fingerprints WHERE fingerprint=$1',[d], function(err, result) {
-	  	if(err)
+	  	if(err) {
+	  		res.send(JSON.stringify(
+	    		{ 
+	    			success: false,
+	    			error_msg: 'Error on Select'
+	    		}));
       	return console.error('error running select', err);    	
+      }
     	if(result.rows.length == 0) {
     		// It doesn't exist add it to db.
     		console.log("Unique browser found");
     		client.query('INSERT INTO fingerprints (fingerprint) VALUES ($1)',[d], function(err, result) {
-    			if(err)
-		      	return console.error('error running insert', err);		    	
-	      	res.send(JSON.stringify({ visits: 1 }));
+    			if(err) {
+    				res.send(JSON.stringify(
+	      		{ 
+	      			success: false,
+	      			error_msg: 'Error on Insert'
+	      		}));
+		      	return console.error('error running select', err);    	
+		      }
+	      	res.send(JSON.stringify(
+	      		{ 
+	      			success: true,
+	      			visits: 1 
+	      		}));
     		});
     	}
     	else {
@@ -73,9 +95,19 @@ exports.plugins = function(req, res) {
     		// It exists, update visit count and send count to the client
     		console.log("Update count on db");
     		client.query('UPDATE fingerprints SET (count) = (count+1) WHERE fingerprint=$1',[d], function(err, result) {
-    			if(err) 
-		      	return console.error('error running insert', err);		    	
-		    	res.send(JSON.stringify({ visits: visit_count }));
+    			if(err) {
+    				res.send(JSON.stringify(
+	      		{ 
+	      			success: false,
+	      			error_msg: 'Error on Update'
+	      		}));
+		      	return console.error('error running select', err);    	
+		      }
+		    	res.send(JSON.stringify(
+	      		{ 
+	      			success: true,
+	      			visits: visit_count 
+	      		}));
     		});
     	}
 	  });	 
