@@ -35,8 +35,7 @@ var postPlugins = function() {
 		userAgent_str+= "<p>Plugin " + i + ": " + plugin_data[temp] + "</p>";
 	}
 
-	// document.getElementById("example").innerHTML=userAgent_str;
-	console.log(plugin_data);
+	// console.log(plugin_data);
 
 	$.ajax({
 	    type: "POST",
@@ -45,10 +44,20 @@ var postPlugins = function() {
 	    data: plugin_data,
 	    // contentType: "application/json; charset=utf-8",
 	    dataType: "JSON",
-	    success: function(data){alert(data);},
+	    // complete: function(data) {
+	    // 	console.log(data);
+	    // }, 
+	    success: function(data){
+	    	console.log(data);
+	    	// Fill in the fingerprint details. 
+	    	var visits_str = "<p><b>You have visited this site " + data.visits + " times</b></p>";
+	    	visits_str += "<p> Below you can find some details of your fingerprint </p>"
+	    	document.getElementById("visits").innerHTML = visits_str;
+				document.getElementById("example").innerHTML=userAgent_str;
+	    },
 	    failure: function(errMsg) {
 	        alert(errMsg);
 	    }
 	});
-
+	
 };

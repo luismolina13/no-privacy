@@ -21,6 +21,14 @@ exports.index = function(req, res){
 	// if(browser_fingerprints[])
 };
 
+exports.getResult = function(req, res){
+	console.log('here');
+	res.render('fp', 
+		{ title: 'No-privacy',
+			unique: true
+		});
+};
+
 exports.plugins = function(req, res) {
 	
 	var fingerprint = "" + req.headers['user-agent'] + " ";
@@ -41,11 +49,10 @@ exports.plugins = function(req, res) {
 	var d = shasum.digest('hex');
 
 	// Hashed the fingerprint
-  console.log(d);
-	// console.log(fingerprint);
+  console.log(d);	
 
-	pg.connect(process.env.DATABASE_URL, function(err, client) {
-	// pg.connect("pg://postgres:@localhost:5433/mylocaldb", function(err, client) {
+	// pg.connect(process.env.DATABASE_URL, function(err, client) {
+	pg.connect("pg://luis:DB2014@localhost:5433/mylocaldb", function(err, client) {
 		if(err)
       return console.error('error running select', err);
 	  client.query('SELECT * FROM fingerprints WHERE fingerprint=$1',[d], function(err, result) {
@@ -57,10 +64,7 @@ exports.plugins = function(req, res) {
     		client.query('INSERT INTO fingerprints (fingerprint) VALUES ($1)',[d], function(err, result) {
     			if(err)
 		      	return console.error('error running insert', err);		    	
-	      	res.render('fp', 
-				  	{ title: 'No-privacy',
-				  		unique: true
-				  	});
+	      	res.send(JSON.stringify({ visits: 1 }));
     		});
     	}
     	else {
@@ -71,28 +75,9 @@ exports.plugins = function(req, res) {
     		client.query('UPDATE fingerprints SET (count) = (count+1) WHERE fingerprint=$1',[d], function(err, result) {
     			if(err) 
 		      	return console.error('error running insert', err);		    	
-		    	res.render('fp', 
-				  	{ title: 'No-privacy',
-				  		unique: false,
-				  		count: visit_count
-				  	});
+		    	res.send(JSON.stringify({ visits: visit_count }));
     		});
     	}
 	  });	 
-	});
-	// browser_fingerprints[fingerprint] = 2;	
-	
-	
-	// console.log(browser_fingerprints[fingerprint]);	
-
-
-  // res.render('index', 
-  // 	{ title: 'No-privacy',
-  // 		visits: browser_fingerprints[fingerprint]
-  // 	});
-	// if(browser_fingerprints[fingerprint]) {
-	// 	browser_fingerprints[fingerprint]++;
-	// }
-	// else {
-	// }
+	});	
 };
