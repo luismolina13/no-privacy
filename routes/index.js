@@ -51,8 +51,8 @@ exports.plugins = function(req, res) {
 	// Hashed the fingerprint
   console.log(d);	
 
-	// pg.connect(process.env.DATABASE_URL, function(err, client) {
-	pg.connect("pg://luis:DB2014@localhost:5433/mylocaldb", function(err, client) {
+	pg.connect(process.env.DATABASE_URL, function(err, client) {
+	// pg.connect("pg://luis:DB2014@localhost:5433/mylocaldb", function(err, client) {
 		if(err)
       return console.error('error running select', err);
 	  client.query('SELECT * FROM fingerprints WHERE fingerprint=$1',[d], function(err, result) {
