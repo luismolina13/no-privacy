@@ -1,16 +1,3 @@
-// var a_el = document.createElement('a');
-// a_el.href = "https://www.facebook.com/";
-// var t=document.createTextNode("FB");
-// a_el.appendChild(t);
-
-// document.body.appendChild(a_el);
-
-// // var r1 = 'a {color:green;}';
-// // var r2 = 'a:visited {color:red;}';
-
-// // document.styleSheets[0].insertRule(r1,0);
-// // document.styleSheets[0].insertRule(r2,1);
-
 // // DOM Ready =============================================================
 // $(document).ready(function() {
 
