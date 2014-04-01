@@ -7,6 +7,7 @@ sites_t[3] = "http://www.msn.com";
 sites_t[4] = "http://www.microsoft.com";
 sites_t[5] = "http://www.nytimes.com"
 
+var thresh_global = 5;
 var sites_t_msg = "";
 var numsites_t = 6;
 var thresh = 0;
@@ -14,10 +15,14 @@ var img_names = ['h1_pre','h2_pre','h1','h2','m1','m2',
                 'google','youtube','fb','msn','msft','nyt'];
 var img_times = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 var img_addrs = [
-    'http://www.nytimes.com/bad1.jpg',
-    'http://www.nytimes.com/bad2.jpg',
-    'http://www.nytimes.com/bad1.jpg',
-    'http://www.nytimes.com/bad2.jpg',
+    // 'http://www.nytimes.com/bad1.jpg',
+    // 'http://www.nytimes.com/bad2.jpg',
+    // 'http://www.nytimes.com/bad1.jpg',
+    // 'http://www.nytimes.com/bad2.jpg',
+    'http://america.aljazeera.com/content/ajam/_jcr_content/footer.img.logoImage.png',
+    'http://america.aljazeera.com/content/dam/ajam/logos/AJAM-logo-gold2.png',
+    'http://america.aljazeera.com/content/ajam/_jcr_content/footer.img.logoImage.png',
+    'http://america.aljazeera.com/content/dam/ajam/logos/AJAM-logo-gold2.png',
     'http://www.nytimes.com/miss1.jpg',
     'http://www.nytimes.com/miss2.jpg',
     'https://www.google.com/images/srpr/logo11w.png',
@@ -36,8 +41,16 @@ function checksites_t() {
     var msgstr = "";
     for(var i = 0; i < img_names.length; i++) {
         msgstr += img_names[i] + "|" + img_times[i] + "\n";
+        msgstr += '<tr>';
+        msgstr += '<td>' + img_names[i] + '</td>';
+        msgstr += '<td>' + img_times[i] + '</td>';
+        msgstr += '</tr>';
     }
-    alert(msgstr + "thresh: " + thresh);
+    msgstr += '<tr><td>Theoretical Threshold:</td><td>' + thresh + '</td></tr>';
+    msgstr += '<tr><td>Practical Threshold:</td><td>' + thresh_global + '</td></tr>';
+    // alert(msgstr + "thresh: " + thresh);
+    $('#css_table_times table tbody').html(msgstr);
+
 
     var tableContent = '';
     for(var i = 6; i < img_names.length; i++) {
@@ -45,7 +58,7 @@ function checksites_t() {
         tableContent += '<tr>';
         tableContent += '<td><a href="' + sites_t[index] + '">' +
             sites_t[index] + '</a></td>';
-        if(img_times[i] <= 10) {
+        if(img_times[i] <= thresh_global) {
             tableContent += '<td>Yes</td>';
         } else {
             tableContent += '<td>No</td>';
